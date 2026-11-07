@@ -1,0 +1,52 @@
+/* Tema da rota /clinica: sobrescreve os tokens do shadcn só dentro do wrapper. */
+.theme-clinica {
+  --background: #f6f9fd;
+  --foreground: #1f2a44;
+  --card: #ffffff;
+  --card-foreground: #1f2a44;
+  --popover: #ffffff;
+  --popover-foreground: #1f2a44;
+  --primary: #2f5db3;
+  --primary-foreground: #ffffff;
+  --secondary: #dce9fa;
+  --secondary-foreground: #1f2a44;
+  --muted: #eaf1fb;
+  --muted-foreground: #4a5775;
+  --accent: #dce9fa;
+  --accent-foreground: #1f2a44;
+  --destructive: #b3261e;
+  --border: #d5e2f4;
+  --input: #7f99c9;
+  --ring: #2f5db3;
+  --radius: 1.5rem;
+
+  /* Cores extras da página */
+  --mint: #7fd1c1;
+  --peach: #ffd9c2;
+
+  scroll-behavior: auto;
+}
+
+/* Etiquetas flutuando devagar ao redor da foto do hero (só transform). */
+@keyframes clinica-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translate3d(0, -8px, 0) rotate(var(--tilt, 0deg));
+  }
+}
+
+.theme-clinica .clinica-float {
+  animation: clinica-float 6s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-clinica .clinica-float {
+    animation: none;
+    transform: rotate(var(--tilt, 0deg));
+  }
+}

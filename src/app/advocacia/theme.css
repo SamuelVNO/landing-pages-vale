@@ -1,0 +1,83 @@
+/*
+ * Tema "o caderno de direitos": papel e tinta.
+ * Marfim #F7F4EE (fundo), papel #E9E3D8 (blocos), verde-escuro #1F3A32 (ação),
+ * dourado #A8864D (só fios, números romanos grandes e detalhes decorativos), tinta #1C1B19.
+ */
+.theme-advocacia {
+  --ivory: #f7f4ee;
+  --paper: #e9e3d8;
+  --green: #1f3a32;
+  --gold: #a8864d;
+  --ink: #1c1b19;
+  --ink-soft: #4a463f;
+
+  --background: var(--ivory);
+  --foreground: var(--ink);
+  --card: var(--ivory);
+  --card-foreground: var(--ink);
+  --popover: var(--ivory);
+  --popover-foreground: var(--ink);
+  --primary: var(--green);
+  --primary-foreground: var(--ivory);
+  --secondary: var(--paper);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--paper);
+  --accent-foreground: var(--ink);
+  --destructive: #8c2b1e;
+  --border: var(--ink);
+  --input: var(--ink-soft);
+  --ring: var(--green);
+  --radius: 0px;
+
+  background-color: var(--ivory);
+  color: var(--ink);
+  font-optical-sizing: auto;
+  font-feature-settings: "kern", "liga", "onum";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.theme-advocacia ::selection {
+  background: var(--green);
+  color: var(--ivory);
+}
+
+/* Rótulos em versalete, como nos cadernos de jornal. */
+.theme-advocacia .adv-caps {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* Detalhes decorativos em dourado (nunca para texto pequeno). */
+.theme-advocacia .adv-gold-text {
+  color: var(--gold);
+}
+.theme-advocacia .adv-gold-bg {
+  background-color: var(--gold);
+}
+.theme-advocacia .adv-gold-border {
+  border-color: var(--gold);
+}
+
+/* Texto corrido com hifenização e espaçamento de jornal. */
+.theme-advocacia .adv-prose {
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+/* Fios de coluna entre colunas de texto. */
+.theme-advocacia .adv-columns {
+  column-rule: 1px solid color-mix(in srgb, var(--ink) 45%, transparent);
+}
+.theme-advocacia .adv-columns > p {
+  break-inside: avoid-column;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-advocacia * {
+    scroll-behavior: auto !important;
+  }
+}

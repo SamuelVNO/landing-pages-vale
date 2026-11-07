@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+!.env.example
+
+# material interno (não vai para o repositório público)
+.claude/
+docs/entregas/
+docs/brief-comum.md

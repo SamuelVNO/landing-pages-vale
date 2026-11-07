@@ -1,0 +1,163 @@
+/*
+ * Tema "a ordem de serviço": asfalto, laranja de ação, amarelo sinal.
+ * `body:has(.theme-oficina)` faz os portais (select, toast) herdarem as cores, já que
+ * eles são renderizados direto no <body>, fora do wrapper.
+ */
+.theme-oficina,
+body:has(.theme-oficina) {
+  --background: #0e0f11;
+  --foreground: #f2f0eb;
+  --card: #1a1c20;
+  --card-foreground: #f2f0eb;
+  --popover: #1a1c20;
+  --popover-foreground: #f2f0eb;
+  --primary: #ff6a13;
+  --primary-foreground: #0e0f11;
+  --secondary: #1a1c20;
+  --secondary-foreground: #f2f0eb;
+  --muted: #1a1c20;
+  --muted-foreground: #9aa0a8;
+  --accent: #272a2f;
+  --accent-foreground: #f2f0eb;
+  --destructive: #ff6b5c;
+  --border: #2d3036;
+  --input: #484d55;
+  --ring: #ffb000;
+  --radius: 2px;
+  --chart-1: #ff6a13;
+  --chart-2: #ffb000;
+  --chart-3: #9aa0a8;
+  --chart-4: #f2f0eb;
+  --chart-5: #2d3036;
+}
+
+.theme-oficina {
+  color-scheme: dark;
+  --sinal: #ffb000;
+  --papel: #ebdca4;
+  --tinta: #2a2417;
+}
+
+body:has(.theme-oficina) {
+  background: #0e0f11;
+}
+
+/* Granulado sutil: SVG de ruído inline, uma tile pequena repetida. */
+.theme-oficina::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* Faixa de alerta (listras amarelo/preto), usada só como divisor pontual. */
+.faixa-alerta {
+  height: 10px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #ffb000 0,
+    #ffb000 12px,
+    #0e0f11 12px,
+    #0e0f11 24px
+  );
+}
+
+/* Overlay do hero: parelho no celular, degradê da esquerda no desktop. */
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(14, 15, 17, 0.82) 0%, rgba(14, 15, 17, 0.9) 100%);
+}
+@media (min-width: 1024px) {
+  .hero-overlay {
+    background:
+      linear-gradient(0deg, #0e0f11 0%, rgba(14, 15, 17, 0) 22%),
+      linear-gradient(90deg, rgba(14, 15, 17, 0.97) 0%, rgba(14, 15, 17, 0.86) 48%, rgba(14, 15, 17, 0.5) 100%);
+  }
+}
+
+/* Papel amarelado da ordem de serviço, com fibra bem leve. */
+.os-papel {
+  background-color: var(--papel);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(120, 90, 20, 0.08)),
+    repeating-linear-gradient(0deg, rgba(42, 36, 23, 0.035) 0, rgba(42, 36, 23, 0.035) 1px, transparent 1px, transparent 3px);
+  color: var(--tinta);
+}
+
+/* Linhas do formulário-ficha. */
+.ficha-linhas {
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 31px,
+    rgba(242, 240, 235, 0.05) 31px,
+    rgba(242, 240, 235, 0.05) 32px
+  );
+}
+
+/* Fachada do mapa: quadras e avenidas estilizadas em CSS, sem imagem. */
+.mapa-fachada {
+  background-color: #14161a;
+  background-image:
+    linear-gradient(115deg, transparent 47%, rgba(255, 176, 0, 0.5) 47.2%, rgba(255, 176, 0, 0.5) 48.2%, transparent 48.4%),
+    linear-gradient(0deg, transparent 63%, rgba(242, 240, 235, 0.16) 63.2%, rgba(242, 240, 235, 0.16) 64.6%, transparent 64.8%),
+    linear-gradient(90deg, rgba(242, 240, 235, 0.07) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(242, 240, 235, 0.07) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+}
+
+/*
+ * Teste de lâmpadas: ao entrar na tela, todas as luzes do painel acendem e voltam ao estado real.
+ * Só opacidade. O fill-mode "backwards" evita travar o estado final (hover continua funcionando).
+ */
+@keyframes luz-teste {
+  0% {
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: var(--luz-final, 0);
+  }
+}
+.painel-teste .luz-acesa {
+  animation: luz-teste 1.3s ease-out backwards;
+}
+
+/* Cursor piscando do "display" do painel. */
+@keyframes display-pisca {
+  50% {
+    opacity: 0.25;
+  }
+}
+.display-pisca {
+  animation: display-pisca 1.1s steps(1) infinite;
+}
+
+/* Marca gigante do rodapé: texto em pseudo-elemento, puramente decorativo. */
+.marca-gigante {
+  height: clamp(4rem, 21vw, 17rem);
+  overflow: hidden;
+  user-select: none;
+}
+.marca-gigante::before {
+  content: "TORQUE";
+  display: block;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 900;
+  font-size: clamp(5rem, 29vw, 24rem);
+  line-height: 0.78;
+  color: #0e0f11;
+}
+
+/* Âncoras (#agendar, #servicos...) rolam suave; o reset de "reduzir movimento" do globals.css continua valendo. */
+html:has(.theme-oficina) {
+  scroll-behavior: smooth;
+}
