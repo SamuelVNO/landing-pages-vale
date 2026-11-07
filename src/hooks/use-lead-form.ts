@@ -35,12 +35,13 @@ export function useLeadForm({ origem, whatsapp, buildMessage, defaultInteresse =
   });
 
   const onSubmit = form.handleSubmit(async (values) => {
-    const result = await saveLead(values);
-    if (!result.ok) {
-      toast.error(result.error);
-      return;
+    // Se o banco falhar (ex.: Supabase pausado), o contato não se perde: segue para o WhatsApp mesmo assim.
+    const result = await saveLead(values).catch(() => ({ ok: false as const, error: "" }));
+    if (result.ok) {
+      toast.success(successText ?? "Recebemos seu contato. Abrindo o WhatsApp…");
+    } else {
+      toast.message("Abrindo o WhatsApp para continuar a conversa…");
     }
-    toast.success(successText ?? "Recebemos seu contato. Abrindo o WhatsApp…");
     const url = whatsappUrl(whatsapp, buildMessage(values));
     // location em vez de window.open: popup depois de await é bloqueado no Safari do iPhone.
     window.setTimeout(() => window.location.assign(url), 600);

@@ -37,8 +37,16 @@ Magic UI · Lenis · Rough Notation · react-hook-form · Supabase · Vercel.
 
 ## Desempenho
 
-Lighthouse no celular (build de produção, mediana de 3 rodadas): Acessibilidade, Boas Práticas e SEO 100 nas
-quatro rotas; Performance 90 a 95. As animações usam só `transform` e `opacity`, respeitam "reduzir movimento" e
+Lighthouse no celular, em produção na Vercel (mediana de 3 rodadas):
+
+| Rota | Performance | Acessibilidade | Boas Práticas | SEO |
+| --- | --- | --- | --- | --- |
+| `/` | 99 | 100 | 100 | 100 |
+| `/oficina` | 95 | 100 | 100 | 100 |
+| `/clinica` | 99 | 100 | 100 | 100 |
+| `/advocacia` | 96 | 100 | 100 | 100 |
+
+No ar: https://landing-pages-vale.vercel.app As animações usam só `transform` e `opacity`, respeitam "reduzir movimento" e
 o Motion carrega depois da primeira pintura.
 
 ## Rodar no local
